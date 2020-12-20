@@ -9,7 +9,6 @@ module.exports = class PhoneCommand extends Command {
 			group: 'phone',
 			memberName: 'phone',
 			description: 'Starts a phone call with a random server.',
-			guildOnly: true,
 			throttling: {
 				usages: 1,
 				duration: 45
@@ -38,7 +37,7 @@ module.exports = class PhoneCommand extends Command {
 	}
 
 	async run(msg, { channelID }) {
-		if (channelID !== 'count' && (!msg.channel.topic || !msg.channel.topic.includes('<xiao:phone>'))) {
+		if (channelID !== 'count' && (msg.guild && (!msg.channel.topic || !msg.channel.topic.includes('<xiao:phone>')))) {
 			return msg.say('You can only start a call in a channel with `<xiao:phone>` in the topic.');
 		}
 		if (channelID !== 'count' && this.client.inPhoneCall(msg.channel)) {
@@ -48,37 +47,35 @@ module.exports = class PhoneCommand extends Command {
 			&& channel.topic
 			&& channel.topic.includes('<xiao:phone>')
 			&& !channel.topic.includes('<xiao:phone:no-random>')
-			&& !channel.topic.includes(`<xiao:phone:block:${msg.channel.id}>`)
-			&& !channel.topic.includes(`<xiao:phone:block:${msg.guild.id}>`)
-			&& (msg.channel.topic && !msg.channel.topic.includes(`<xiao:phone:block:${channel.id}>`))
-			&& (msg.channel.topic && !msg.channel.topic.includes(`<xiao:phone:block:${channel.guild.id}>`))
-			&& !msg.guild.channels.cache.has(channel.id)
+			&& !this.client.isBlockedFromPhone(msg.channel, channel, msg.author)
+			&& (msg.guild ? !msg.guild.channels.cache.has(channel.id) : true)
 			&& (channelID ? true : !this.client.inPhoneCall(channel)));
 		if (!channels.size) return msg.reply('No channels currently allow phone calls...');
 		let channel;
 		if (channelID) {
 			if (channelID === 'count') return msg.say(`☎️ **${channels.size}** currently open lines.`);
 			channel = this.client.channels.cache.get(channelID);
-			if (!channel || !channel.guild) return msg.reply('This channel does not exist.');
+			const user = this.client.users.cache.get(channelID);
+			if (user) return msg.reply('You cannot call DM channels.');
+			if (!channel || !channel.guild) return msg.reply('That channel does not exist.');
 			if (!channel.topic || !channel.topic.includes('<xiao:phone>')) {
-				return msg.reply('This channel does not allow phone calls.');
+				return msg.reply('That channel does not allow phone calls.');
 			}
-			if (this.client.inPhoneCall(channel)) return msg.reply('This channel is already in a call.');
-			if (channel.topic.includes(`<xiao:phone:block:${msg.channel.id}>`)) {
+			if (this.client.inPhoneCall(channel)) return msg.reply('That channel is already in a call.');
+			if (this.client.isBlockedFromPhone(msg.channel, channel, msg.author)) {
 				return msg.reply('That channel has blocked this channel from calling them.');
-			}
-			if (channel.topic.includes(`<xiao:phone:block:${msg.guild.id}>`)) {
-				return msg.replY('That channel has blocked this server from calling them.');
 			}
 		} else {
 			channel = channels.random();
 		}
 		try {
-			const id = `${msg.channel.id}:${channel.id}`;
+			const id = `${msg.guild ? msg.channel.id : msg.author.id}:${channel.id}`;
 			this.client.phone.set(id, new PhoneCall(this.client, msg.author, msg.channel, channel));
 			await this.client.phone.get(id).start();
 			return null;
 		} catch {
+			const id = `${msg.guild ? msg.channel.id : msg.author.id}:${channel.id}`;
+			this.client.phone.delete(id);
 			return msg.reply('Failed to start the call. Try again later!');
 		}
 	}

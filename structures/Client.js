@@ -52,6 +52,15 @@ module.exports = class XiaoClient extends CommandoClient {
 		return this.phone.some(call => call.origin.id === channel.id || call.recipient.id === channel.id);
 	}
 
+	isBlockedFromPhone(origin, recipient, caller) {
+		return (recipient.guild && recipient.topic.includes(`<xiao:phone:block:${origin.id}>`))
+			|| (recipient.guild && recipient.topic.includes(`<xiao:phone:block:${caller.id}>`))
+			|| (origin.guild && recipient.guild && recipient.topic.includes(`<xiao:phone:block:${origin.guild.id}>`))
+			|| (origin.guild && origin.topic.includes(`<xiao:phone:block:${recipient.id}>`))
+			|| (origin.guild && recipient.guild && origin.topic.includes(`<xiao:phone:block:${recipient.guild.id}>`))
+			|| (origin.guild && origin.topic.includes(`<xiao:phone:block:${caller.id}>`));
+	}
+
 	importCommandLeaderboard() {
 		const read = fs.readFileSync(path.join(__dirname, '..', 'command-leaderboard.json'), {
 			encoding: 'utf8'

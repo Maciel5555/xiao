@@ -49,6 +49,7 @@ Xiao is a Discord bot coded in JavaScript with
 	* [Text Manipulation](#text-manipulation)
 	* [Number Manipulation](#number-manipulation)
 	* [Play Audio](#play-audio)
+	* [Reminders](#reminders)
 	* [Phone](#phone)
 	* [Coding Tools](#coding-tools)
 	* [Other](#other)
@@ -86,6 +87,7 @@ don't grant that permission.
 - **Attach Files** is required to allow commands that send files to work. Too many commands to list use it.
 - **Read Message History** allows Xiao to use the `first-message` and `prune` commands.
 	* It is also required to allow Xiao to react to messages alongside "Add Reactions".
+- **Mention @everyone, @here, and All Roles** allows Xiao to use the `where-is-everybody` command.
 - **Use External Emojis** allows Xiao to use custom emoji in certain commands.
 	* While the commands benefit from it, it is not required for the commands to work.
 - **Add Reactions** allows Xiao to use commands that add reactions to messages in certain commands.
@@ -98,7 +100,7 @@ don't grant that permission.
 ## Fun Information
 
 - 500+ commands
-- 30,000+ lines of JavaScript
+- 31,000+ lines of JavaScript
 - 63,000+ lines of JSON data
 - 3 years of development
 
@@ -257,7 +259,7 @@ in the appropriate channel's topic to use it.
 
 ## Commands
 
-Total: 565
+Total: 572
 
 ### Utility:
 
@@ -282,6 +284,7 @@ Total: 565
 * **eval:** Executes JavaScript code. (Owner-Only)
 * **command-leaderboard-export:** Exports a command leaderboard JSON file. (Owner-Only)
 * **command-leaderboard-import:** Imports a command leaderboard JSON file. (Owner-Only)
+* **dependency-update:** Checks for dependency updates. (Owner-Only)
 * **exec:** Executes a command-line application. (Owner-Only)
 * **generate-commands:** Generates the commands list for Xiao's README. (Owner-Only)
 * **generate-credit:** Generates the credit list for Xiao's README. (Owner-Only)
@@ -426,6 +429,7 @@ Total: 565
 * **rickroll:** Sends a link to the "Never Gonna Give You Up" music video.
 * **spam:** Responds with a picture of Spam.
 * **tableflip:** Flips a table... With animation!
+* **where-is-everybody:** Where is everybody?
 * **wynaut:** Why not? Wynaut?
 * **yoff:** Posts a picture that truly defines modern art.
 
@@ -438,13 +442,14 @@ Total: 565
 
 * **anime-airing:** Responds with a list of the anime that air today.
 * **apod:** Responds with today's Astronomy Picture of the Day.
-* **calendar:** Responds with today's holidays.
+* **calendar:** Responds with the calendar for a specific month and year.
 * **covid-19:** Responds with stats for COVID-19.
 * **days-since:** Responds with how many days there have been since a certain date.
 * **days-until:** Responds with how many days there are until a certain date.
 * **doomsday-clock:** Responds with the current time of the Doomsday Clock.
 * **friday-the-13th:** Determines if today is Friday the 13th.
 * **google-doodle:** Responds with a Google Doodle, either the latest one or a random one from the past.
+* **holidays:** Responds with today's holidays.
 * **horoscope:** Responds with today's horoscope for a specific Zodiac sign.
 * **humble-bundle:** Responds with the current Humble Bundle.
 * **is-tuesday:** Determines if today is Tuesday.
@@ -500,6 +505,8 @@ Total: 565
 * **paladins:** Responds with information on a Paladins player.
 * **periodic-table:** Finds an element on the periodic table.
 * **poem:** Searches for poems by a specific author.
+* **pokedex-location:** Responds with the location data for a Pokémon.
+* **pokedex-moveset:** Responds with the moveset for a Pokémon.
 * **pokedex:** Searches the Pokédex for a Pokémon.
 * **pornhub:** Searches Pornhub for your query. (NSFW)
 * **recipe:** Searches for recipes based on your query.
@@ -606,6 +613,7 @@ Total: 565
 * **russian-roulette:** Who will pull the trigger and die first?
 * **spam-war:** See who can type more characters the fastest.
 * **tic-tac-toe:** Play a game of tic-tac-toe with another user.
+* **typing-race:** Race a user to see who can type a sentence faster.
 * **word-chain:** Try to come up with words that start with the last letter of your opponent's word.
 * **word-spud:** Hot potato, but with words.
 
@@ -653,6 +661,7 @@ Total: 565
 * **invert:** Draws an image or a user's avatar but inverted.
 * **jeopardy-question:** Sends a Jeopardy Question with the text of your choice.
 * **lego-icon:** Edits an image or avatar onto a character icon from LEGO Star Wars.
+* **license-plate:** Creates a license plate with the text of your choice.
 * **liquid-rescale:** Draws an image or a user's avatar but with liquid rescale from ImageMagick.
 * **minecraft-skin:** Sends the Minecraft skin for a user.
 * **mirror:** Draws an image or a user's avatar but mirrored on the X/Y axis (or both).
@@ -1054,6 +1063,8 @@ here.
 	* danbooru (API)
 - [Dance Dance Revolution](https://www.ddrgame.com/)
 	* emoji-emoji-revolution (Concept)
+- [Dave Hansen](https://www.fontspace.com/dave-hansen)
+	* license-plate ([License Plate Font](https://www.fontspace.com/license-plate-font-f3359))
 - [Deathbulge](http://deathbulge.com/comics)
 	* ultimate-tattoo ([Image](http://deathbulge.com/comics/114))
 - [Demirramon](https://www.demirramon.com/)
@@ -1088,6 +1099,7 @@ here.
 	* drakeposting ([Original "Hotline Bling" Music Video](https://youtu.be/uxpDa-c-4Mc))
 - [DreamWorks](https://www.dreamworks.com/)
 	* shrek ([Images, Original "Shrek" Movie](https://www.dreamworks.com/movies/shrek))
+	* where-is-everybody ([Images, Original "Shrek" Movie](https://www.dreamworks.com/movies/shrek))
 - [Dust: An Elysian Tail](https://www.noogy.com/main.html)
 	* fidget (Original Game)
 - [DynamicPickaxe](http://dynamicpickaxe.com/)
@@ -1153,7 +1165,6 @@ here.
 - [Google](https://www.google.com/)
 	* boardroom-meeting ([Noto Font](https://www.google.com/get/noto/))
 	* book ([Books API](https://developers.google.com/books/))
-	* calendar ([Calendar API](https://developers.google.com/calendar/))
 	* catch ([Noto Font](https://www.google.com/get/noto/))
 	* caution ([Noto Font](https://www.google.com/get/noto/))
 	* change-my-mind ([Noto Font](https://www.google.com/get/noto/))
@@ -1169,6 +1180,7 @@ here.
 	* google-doodle ([Google Doodles API](https://www.google.com/doodles))
 	* google-feud (Autofill API)
 	* gru-plan ([Noto Font](https://www.google.com/get/noto/))
+	* holidays ([Calendar API](https://developers.google.com/calendar/))
 	* if-those-kids-could-read ([Noto Font](https://www.google.com/get/noto/))
 	* lisa-presentation ([Noto Font](https://www.google.com/get/noto/))
 	* map ([Maps Static API](https://developers.google.com/maps/documentation/maps-static/intro))
@@ -1381,7 +1393,6 @@ here.
 	* give-flower ([Original "Rune Factory 4" Game](http://www.runefactory4.com/index1.html))
 	* xiao ([Images, Original "Rune Factory 4" Game](http://www.runefactory4.com/index1.html))
 - [mathjs](https://mathjs.org/)
-	* math (Expression Parser)
 	* units (Expression Parser)
 - [Mattel](https://www.mattel.com/en-us)
 	* 8-ball ([Original Concept](https://www.mattelgames.com/games/en-us/kids/magic-8-ball))
@@ -1461,6 +1472,7 @@ here.
 - [NotAWeebDev](https://github.com/NotAWeebDev/)
 	* triggered ([Image](https://github.com/NotAWeebDev/Misaki/blob/2e44f9efb467028dcbae5a2c9f836d2e99860b85/assets/images/plate_triggered.png))
 - [npm](https://www.npmjs.com/)
+	* dependency-update (API)
 	* npm (API)
 - [Numbers API](http://numbersapi.com/)
 	* number-fact (Trivia API)
@@ -1524,6 +1536,8 @@ here.
 - [Perspective API](https://www.perspectiveapi.com/#/)
 	* severe-toxicity (API)
 	* toxicity (API)
+- [Pin Clipart](https://www.pinclipart.com/)
+	* license-plate ([Image](https://www.pinclipart.com/maxpin/bJxii/))
 - [Platinum Designz](http://store.platinumdesignz.com/)
 	* glass-shatter ([Image](https://www.jing.fm/iclipt/u2q8u2a9o0t4i1q8/))
 - [Playstation Trophies](https://www.playstationtrophies.org/)
@@ -1540,6 +1554,8 @@ here.
 	* pokemon-fusion (Images)
 - [PokéAPI](https://pokeapi.co/)
 	* pokedex (API)
+	* pokedex-location (API)
+	* pokedex-moveset (API)
 	* pokemon-cry (API)
 	* whos-that-pokemon (API)
 	* whos-that-pokemon-cry (API)
@@ -1548,6 +1564,8 @@ here.
 	* dexter (Image, Original Anime)
 	* hat (Ash Hat Original Anime)
 	* pokedex (Images, Original Game)
+	* pokedex-location (Images, Original Game)
+	* pokedex-moveset (Images, Original Game)
 	* pokemon-cry (Original Game)
 	* pokemon-fusion (Original Game)
 	* whos-that-pokemon (Images, Original Game)
@@ -1624,6 +1642,8 @@ here.
 	* sonic-says ([Image, Original "Sonic the Hedgehog" Game](https://www.sonicthehedgehog.com/))
 - [Serebii.net](https://www.serebii.net/index2.shtml)
 	* pokedex (Images)
+	* pokedex-location (Images)
+	* pokedex-moveset (Images)
 	* whos-that-pokemon (Images)
 	* whos-that-pokemon-cry (Images)
 - [ShareFonts.net](https://www.wfonts.com/)

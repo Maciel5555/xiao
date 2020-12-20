@@ -7,8 +7,7 @@ module.exports = class HangUpCommand extends Command {
 			aliases: ['hang'],
 			group: 'phone',
 			memberName: 'hang-up',
-			description: 'Hangs up the current phone call.',
-			guildOnly: true
+			description: 'Hangs up the current phone call.'
 		});
 	}
 
@@ -20,6 +19,10 @@ module.exports = class HangUpCommand extends Command {
 		if (!call.active) return msg.reply('☎️ This call is not currently active.');
 		if (call.adminCall && !this.client.isOwner(msg.author)) {
 			return msg.reply('☎️ You cannot hang up in an admin call.');
+		}
+		const otherChannel = call.origin.id === msg.channel.id ? call.recipient : call.origin;
+		if (this.client.isBlockedFromPhone(msg.channel, otherChannel, msg.author)) {
+			return msg.reply('☎️ You are blocked from hanging up this phone call.');
 		}
 		const nonQuitter = msg.channel.id === call.origin.id ? call.recipient : call.origin;
 		await call.hangup(nonQuitter);
