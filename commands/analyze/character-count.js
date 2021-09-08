@@ -5,14 +5,14 @@ module.exports = class CharacterCountCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'character-count',
-			aliases: ['characters', 'chars', 'length', 'char-count'],
+			aliases: ['characters', 'chars', 'contarletras', 'char-count'],
 			group: 'analyze',
 			memberName: 'character-count',
-			description: 'Responds with the character count of text.',
+			description: 'Fala quantas letras tem sua mensagem.',
 			args: [
 				{
 					key: 'text',
-					prompt: 'What text would you like to get the character count of?',
+					prompt: 'De qual texto eu devo contas as letras?',
 					type: 'string'
 				}
 			]
