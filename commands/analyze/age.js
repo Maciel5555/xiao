@@ -22,6 +22,6 @@ module.exports = class AgeCommand extends Command {
 		const currentYear = new Date().getFullYear();
 		const age = currentYear - year;
 		if (age < 0) return msg.say(`Alguem nascido em ${year} teria hoje ${Math.abs(age)} anos.`);
-		return msg.say(`Alguem nascido em ${year} teria hoje${age} anos.`);
+		return msg.say(`Alguem nascido em ${year} teria hoje ${age} anos.`);
 	}
 };
