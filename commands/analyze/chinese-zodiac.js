@@ -8,11 +8,11 @@ module.exports = class ChineseZodiacCommand extends Command {
 			aliases: ['chinese-zodiac-sign'],
 			group: 'analyze',
 			memberName: 'chinese-zodiac',
-			description: 'Responds with the Chinese Zodiac Sign for the given year.',
+			description: 'Responde com o signo zodíaco chinês determinado pelo ano que você dizer.',
 			args: [
 				{
 					key: 'year',
-					prompt: 'What year would you like to get the Chinese Zodiac Sign for?',
+					prompt: 'Em qual ano você deseja obter o signo zodíaco chinês?',
 					type: 'integer',
 					min: 1
 				}
@@ -21,6 +21,6 @@ module.exports = class ChineseZodiacCommand extends Command {
 	}
 
 	run(msg, { year }) {
-		return msg.say(`The Chinese Zodiac Sign for ${year} is ${signs[year % signs.length]}.`);
+		return msg.say(`O Signo do zodíaco chinês para ${year} e ${signs[year % signs.length]}.`);
 	}
 };
