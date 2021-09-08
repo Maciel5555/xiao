@@ -48,8 +48,8 @@ module.exports = class FaceCommand extends Command {
 			const beautyScore = face.gender.value === 'Masculino' ? face.beauty.female_score : face.beauty.male_score;
 			return msg.reply(oneLine` Acho que essa imagem tem
 				${face.age.value} anos ${face.gender.value.toLowerCase()}.
-				${pronoun} appears to be ${emotion}, and is ${smile ? 'smiling' : 'not smiling'}. I give this
-				face a ${Math.round(beautyScore)} on the 1-100 beauty scale.
+				${pronoun} parece ser ${emotion}, e ${smile ? 'sorrindo' : 'não sorrindo'}. Eu dou essa
+				 ${Math.round(beautyScore)} on the 1-100 beauty scale.
 				${beautyScore > 50 ? beautyScore > 70 ? beautyScore > 90 ? 'Hot!' : 'Not bad.' : 'Not _too_ ugly.' : 'Uggggly!'}
 			`);
 		} catch (err) {
