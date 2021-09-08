@@ -12,7 +12,7 @@ module.exports = class FaceCommand extends Command {
 			name: 'face',
 			group: 'analyze',
 			memberName: 'face',
-			description: 'Determines the race, gender, and age of a face.',
+			description: 'Determina raça, idade e sexo por imagem.',
 			throttling: {
 				usages: 1,
 				duration: 30
@@ -28,7 +28,7 @@ module.exports = class FaceCommand extends Command {
 			args: [
 				{
 					key: 'image',
-					prompt: 'What face would you like to scan?',
+					prompt: 'Qual rosto você gostaria de escanear?',
 					type: 'image'
 				}
 			]
@@ -38,16 +38,16 @@ module.exports = class FaceCommand extends Command {
 	async run(msg, { image }) {
 		try {
 			const face = await this.detect(image);
-			if (!face) return msg.reply('There are no faces in this image.');
-			if (face === 'size') return msg.reply('This image is too large.');
-			const pronoun = face.gender.value === 'Male' ? 'He' : 'She';
+			if (!face) return msg.reply('Não ha rostos dessa imagem!');
+			if (face === 'size') return msg.reply('Essa imagem e muito grande.');
+			const pronoun = face.gender.value === 'Masculino' ? 'Ele' : 'Ela';
 			const emotion = emotionResponse[emotions.indexOf(
 				emotions.slice(0).sort((a, b) => face.emotion[b] - face.emotion[a])[0]
 			)];
 			const smile = face.smile.value > face.smile.threshold;
-			const beautyScore = face.gender.value === 'Male' ? face.beauty.female_score : face.beauty.male_score;
-			return msg.reply(oneLine`
-				I think this is a photo of a ${face.age.value} year old ${face.gender.value.toLowerCase()}.
+			const beautyScore = face.gender.value === 'Masculino' ? face.beauty.female_score : face.beauty.male_score;
+			return msg.reply(oneLine` Acho que essa imagem tem
+				${face.age.value} anos ${face.gender.value.toLowerCase()}.
 				${pronoun} appears to be ${emotion}, and is ${smile ? 'smiling' : 'not smiling'}. I give this
 				face a ${Math.round(beautyScore)} on the 1-100 beauty scale.
 				${beautyScore > 50 ? beautyScore > 70 ? beautyScore > 90 ? 'Hot!' : 'Not bad.' : 'Not _too_ ugly.' : 'Uggggly!'}
